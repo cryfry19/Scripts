@@ -19,12 +19,10 @@ if command -v go &>/dev/null; then
         echo -e "${YELLOW}Updating Go to the latest version...${NC}"
         wget https://go.dev/dl/$(curl -s https://go.dev/dl/ | grep -o 'go[0-9\.]*\.linux-amd64.tar.gz' | head -n 1)
         sudo tar -C /usr/local -xzf go*.linux-amd64.tar.gz
-        source ~/.bashrc
         rm go*.linux-amd64.tar.gz
 
         if ! grep -qxF 'export PATH=$PATH:/usr/local/go/bin' ~/.bashrc; then
             echo 'export PATH=$PATH:/usr/local/go/bin' >>~/.bashrc
-            source ~/.bashrc
             echo -e "${GREEN}Go has been updated to version $latest_version and the PATH has been added to .bashrc.${NC}"
         else
             echo -e "${GREEN}Go has been updated to version $latest_version.${NC}"
@@ -36,8 +34,14 @@ else
     wget https://go.dev/dl/$(curl -s https://go.dev/dl/ | grep -o 'go[0-9\.]*\.linux-amd64.tar.gz' | head -n 1)
     sudo tar -C /usr/local -xzf go*.linux-amd64.tar.gz
     rm go*.linux-amd64.tar.gz
-
     echo 'export PATH=$PATH:/usr/local/go/bin' >>~/.bashrc
-    source ~/.bashrc
     echo -e "${GREEN}Go has been installed (version $latest_version) and the PATH has been added to .bashrc.${NC}"
+fi
+
+# Check if the .bashrc file exists and is readable
+if [ -f ~/.bashrc ] && [ -r ~/.bashrc ]; then
+    source ~/.bashrc
+    echo "${GREEN}Successfully sourced ~/.bashrc${NC}"
+else
+    echo "${RED}Unable to source ~/.bashrc. File not found or not readable.${NC}"
 fi
