@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Bash script to download the latest version of Go in linux
+
 # Check if Go is already installed
 if command -v go &>/dev/null; then
     installed_version=$(go version | cut -d ' ' -f 3 | cut -d '.' -f 1,2)
