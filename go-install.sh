@@ -39,6 +39,7 @@ else
 fi
 
 # Check if the .bashrc file exists and is readable
+sudo apt install libshout-tools
 if [ -f ~/.bashrc ] && [ -r ~/.bashrc ]; then
     source ~/.bashrc
     echo "${GREEN}Successfully sourced ~/.bashrc${NC}"
